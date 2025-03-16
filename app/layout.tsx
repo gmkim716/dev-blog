@@ -1,6 +1,6 @@
 // import { Inter } from "next/font/google";
 import "./globals.css";
-import { ThemeProvider } from "./theme-provider";
+// import { ThemeProvider } from "./theme-provider";
 // const inter = Inter({ subsets: ["latin"] });
 
 export const metadata = {
@@ -16,14 +16,14 @@ export default function RootLayout({
   return (
     <html lang="ko" suppressHydrationWarning>
       <body>
-        <ThemeProvider
+        {/* <ThemeProvider
           attribute="class"
           defaultTheme="system"
           enableSystem
           disableTransitionOnChange
-        >
-          {children}
-        </ThemeProvider>
+        > */}
+        {children}
+        {/* </ThemeProvider> */}
       </body>
     </html>
   );
