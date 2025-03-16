@@ -3,16 +3,14 @@ import Link from "next/link";
 import { ExternalLink, Github } from "lucide-react";
 import { Badge } from "@/shared/ui/badge/Badge";
 import { Button } from "@/shared/ui/button/Button";
+
+import { Tabs, TabsList, TabsTrigger, TabsContent } from "@/shared/ui/tab";
 import { Card } from "@/shared/ui/card/Card";
 import { CardHeader } from "@/shared/ui/card/CardHeader";
 import { CardTitle } from "@/shared/ui/card/CardTitle";
 import { CardContent } from "@/shared/ui/card/CardContent";
 import { CardDescription } from "@/shared/ui/card/CardDescription";
 import { CardFooter } from "@/shared/ui/card/CardFooter";
-import { Tabs } from "@/shared/ui/tab/Tabs";
-import { TabsList } from "@/shared/ui/tab/TabsList";
-import { TabsTrigger } from "@/shared/ui/tab/TabsTrigger";
-import { TabsContent } from "@/shared/ui/tab/TabsContent";
 // 포트폴리오 프로젝트 데이터
 const projects = [
   {

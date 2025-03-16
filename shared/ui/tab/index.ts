@@ -1,4 +1,4 @@
-export * as Tabs from "./Tabs";
-export * as TabsContent from "./TabsContent";
-export * as TabsList from "./TabsList";
-export * as TabsTrigger from "./TabsTrigger";
+export { Tabs } from "./Tabs";
+export { TabsContent } from "./TabsContent";
+export { TabsList } from "./TabsList";
+export { TabsTrigger } from "./TabsTrigger";
