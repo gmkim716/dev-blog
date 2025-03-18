@@ -1,6 +1,6 @@
 "use client";
 
-import { useState, useRef } from "react";
+import { useState, useRef, useCallback, ClipboardEvent } from "react";
 import {
   ImagePlus,
   Bold,
@@ -15,13 +15,19 @@ import {
 } from "lucide-react";
 import { Card } from "@/shared/ui/card/Card";
 import { CardContent } from "@/shared/ui/card/CardContent";
-import { Tabs, TabsList, TabsTrigger } from "@/shared/ui/tab";
+import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/shared/ui/tab";
 import { Button } from "@/shared/ui/button/Button";
+import ImageUploader from "@/unClassified/editor/image-uploader";
+import MarkdownPreview from "@/unClassified/editor/markdown-preview";
+import TextareaAutosize from "react-textarea-autosize";
+import Separator from "@/shared/ui/separator/Separator";
+import supabase from "@/shared/lib/supabase";
 
 export default function BlogEditor() {
   const [content, setContent] = useState<string>("");
   const [showImageUploader, setShowImageUploader] = useState<boolean>(false);
   const textareaRef = useRef<HTMLTextAreaElement>(null);
+  const [isUploading, setIsUploading] = useState(false);
 
   const insertMarkdown = (markdownSyntax: string, placeholder?: string) => {
     if (!textareaRef.current) return;
@@ -63,6 +69,83 @@ export default function BlogEditor() {
     insertMarkdown(imageMarkdown);
     setShowImageUploader(false);
   };
+
+  // 클립보드 이미지 처리 함수
+  const handlePaste = useCallback(
+    async (e: ClipboardEvent<HTMLTextAreaElement>) => {
+      const items = e.clipboardData?.items;
+      if (!items) return;
+
+      // 이미지 파일 찾기
+      const imageItem = Array.from(items).find(
+        (item) => item.type.indexOf("image") !== -1
+      );
+
+      if (!imageItem) return; // 이미지가 아니면 그냥 반환
+
+      // 기본 붙여넣기 동작 방지
+      e.preventDefault();
+
+      try {
+        setIsUploading(true);
+
+        // 파일 가져오기
+        const file = imageItem.getAsFile();
+        if (!file) return;
+
+        // 파일 이름 생성 (현재 시간 + 랜덤 문자열)
+        const fileExt = file.name.split(".").pop();
+        const fileName = `${Date.now()}_${Math.random()
+          .toString(36)
+          .substring(2, 15)}.${fileExt}`;
+        const filePath = `uploads/${fileName}`;
+
+        // Supabase Storage에 업로드
+        const { error } = await supabase.storage
+          .from("images") // 버킷 이름을 적절히 변경하세요
+          .upload(filePath, file);
+
+        if (error) throw error;
+
+        // 이미지 URL 가져오기
+        const { data: urlData } = supabase.storage
+          .from("images")
+          .getPublicUrl(filePath);
+
+        const imageUrl = urlData.publicUrl;
+
+        // 텍스트 에디터에 마크다운 이미지 구문 삽입
+        const textarea = textareaRef.current;
+        if (!textarea) return;
+
+        const startPos = textarea.selectionStart;
+        const endPos = textarea.selectionEnd;
+        const beforeText = content.substring(0, startPos);
+        const afterText = content.substring(endPos);
+
+        // 마크다운 이미지 구문 생성
+        const imageMarkdown = `![붙여넣은 이미지](${imageUrl})`;
+
+        // 새 텍스트 조합 및 상태 업데이트
+        const newValue = beforeText + imageMarkdown + afterText;
+        setContent(newValue);
+
+        // 커서 위치 조정
+        setTimeout(() => {
+          textarea.focus();
+          const newCursorPos = startPos + imageMarkdown.length;
+          textarea.selectionStart = newCursorPos;
+          textarea.selectionEnd = newCursorPos;
+        }, 0);
+      } catch (error) {
+        console.error("이미지 업로드 실패:", error);
+        alert("이미지 업로드에 실패했습니다.");
+      } finally {
+        setIsUploading(false);
+      }
+    },
+    [content, setContent]
+  );
 
   return (
     <div className="container mx-auto py-6 max-w-5xl">
@@ -161,13 +244,21 @@ export default function BlogEditor() {
             </div>
 
             <TabsContent value="write" className="mt-0">
-              <TextareaAutosize
-                ref={textareaRef}
-                value={content}
-                onChange={(e) => setContent(e.target.value)}
-                placeholder="마크다운으로 내용을 작성하세요..."
-                className="w-full min-h-[400px] resize-none border-none focus:outline-none focus:ring-0 p-0 text-base leading-relaxed"
-              />
+              <div className="relative">
+                {isUploading && (
+                  <div className="absolute inset-0 bg-black/20 flex items-center justify-center z-10">
+                    <span className="text-white">이미지 업로드 중...</span>
+                  </div>
+                )}
+                <TextareaAutosize
+                  ref={textareaRef}
+                  value={content}
+                  onChange={(e) => setContent(e.target.value)}
+                  onPaste={handlePaste}
+                  placeholder="마크다운으로 내용을 작성하세요... 이미지는 붙여넣기(Ctrl+V)로 추가할 수 있습니다."
+                  className="w-full min-h-[400px] resize-none border-none focus:outline-none focus:ring-0 p-0 text-base leading-relaxed"
+                />
+              </div>
             </TabsContent>
 
             <TabsContent value="preview" className="mt-0">
