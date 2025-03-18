@@ -1,9 +1,9 @@
 import type React from "react";
 import type { Metadata } from "next";
 import Link from "next/link";
-
+import { NAME } from "@/shared/const/personal";
 export const metadata: Metadata = {
-  title: "포트폴리오 | 개발자 홍길동의 기술 블로그",
+  title: `포트폴리오 | 개발자 ${NAME}의 기술 블로그`,
   description:
     "웹 개발, AI, 모바일 앱, 블록체인 등 다양한 분야의 프로젝트 포트폴리오",
 };

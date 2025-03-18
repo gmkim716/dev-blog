@@ -1,21 +1,21 @@
-// import { Inter } from "next/font/google";
+import { NAME } from "@/shared/const/personal";
 import "./globals.css";
 // import { ThemeProvider } from "./theme-provider";
-// const inter = Inter({ subsets: ["latin"] });
+import { ReactNode } from "react";
 
 export const metadata = {
-  title: "개발자 홍길동의 기술 블로그",
-  description:
-    "웹 개발과 인공지능에 관한 인사이트와 프로젝트 경험을 공유합니다",
+  title: `개발자 ${NAME}`,
+  description: "재미있게 개발하고 싶어요",
 };
 export default function RootLayout({
   children,
 }: Readonly<{
-  children: React.ReactNode;
+  children: ReactNode;
 }>) {
   return (
-    <html lang="ko" suppressHydrationWarning>
-      <body>
+    <html lang="ko">
+      {/* suppressHydrationWarning: 서버 렌더링 시 오류 방지, 특정 요소에 대한 하이드레이션 경고 억제 */}
+      <body className="w-[50%] mx-auto" suppressHydrationWarning>
         {/* <ThemeProvider
           attribute="class"
           defaultTheme="system"

@@ -9,6 +9,7 @@ import { CardContent } from "@/shared/ui/card/CardContent";
 import { CardDescription } from "@/shared/ui/card/CardDescription";
 import { CardFooter } from "@/shared/ui/card/CardFooter";
 import { Input } from "@/shared/ui/input/Input";
+import { NAME } from "@/shared/const/personal";
 
 export default function Home() {
   return (
@@ -74,7 +75,7 @@ export default function Home() {
                   안녕하세요!
                 </div>
                 <h1 className="text-3xl font-bold tracking-tighter sm:text-5xl">
-                  개발자 홍길동입니다
+                  개발자 {NAME}입니다
                 </h1>
                 <p className="max-w-[600px] text-muted-foreground md:text-xl/relaxed lg:text-base/relaxed xl:text-xl/relaxed">
                   저는 웹 개발과 인공지능에 관심이 많은 풀스택 개발자입니다. 이

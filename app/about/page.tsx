@@ -4,13 +4,14 @@ import { Card } from "@/shared/ui/card/Card";
 import { Badge } from "@/shared/ui/badge/Badge";
 import { Github, Linkedin, Mail, Twitter } from "lucide-react";
 import { CardContent } from "@/shared/ui/card/CardContent";
+import { NAME } from "@/shared/const/personal";
 export default function AboutPage() {
   return (
     <div className="container py-12 md:py-16 lg:py-24">
       <div className="grid gap-8 lg:grid-cols-2 lg:gap-12 items-start">
         <div className="space-y-6">
           <h1 className="text-4xl font-bold tracking-tighter sm:text-5xl">
-            안녕하세요, 홍길동입니다
+            안녕하세요, ${NAME}입니다
           </h1>
           <p className="text-xl text-muted-foreground">
             웹 개발과 인공지능에 관심이 많은 풀스택 개발자입니다.
