@@ -1,5 +1,5 @@
 import { Button } from "@/shared/ui/button/Button";
-import { ChevronRight, Link } from "lucide-react";
+import { ChevronRight } from "lucide-react";
 import ArticleCard from "@/entities/article/ui/ArticleCard";
 import NewsletterSection from "@/widgets/news-letter/NewsletterSection";
 import HeroSection from "@/widgets/hero-section/HeroSection";
