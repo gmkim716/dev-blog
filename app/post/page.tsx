@@ -23,7 +23,7 @@ import TextareaAutosize from "react-textarea-autosize";
 import Separator from "@/shared/ui/separator/Separator";
 import supabase from "@/shared/lib/supabase";
 
-export default function BlogEditor() {
+export default function PostEditor() {
   const [content, setContent] = useState<string>("");
   const [showImageUploader, setShowImageUploader] = useState<boolean>(false);
   const textareaRef = useRef<HTMLTextAreaElement>(null);

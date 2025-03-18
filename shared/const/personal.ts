@@ -4,3 +4,6 @@ export const GITHUB = "https://github.com/gmkim716";
 export const LINKEDIN = "https://www.linkedin.com/in/gmkim716/";
 export const BLOG = "";
 export const RESUME = "";
+
+// export const PROFILE_IMAGE = "/profile.png";
+// export const IDENTIFICATION_IMAGE = "/identification.png";
