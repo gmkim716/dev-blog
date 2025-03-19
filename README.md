@@ -10,7 +10,12 @@
 ### Backend
 
 - Nest.js (예정)
--
+- Supabase
+
+### Deploy
+
+- Vercel
+- 환경변수
 
 ## FSD 아키텍처 사용법
 
