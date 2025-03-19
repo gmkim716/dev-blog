@@ -37,6 +37,12 @@ export default function Header() {
               About
             </Link>
             <Link
+              href="/sandbox"
+              className="text-sm font-medium text-muted-foreground transition-colors hover:text-primary"
+            >
+              Sandbox
+            </Link>
+            <Link
               href="/post"
               className="text-sm font-medium text-muted-foreground transition-colors hover:text-primary"
             >
