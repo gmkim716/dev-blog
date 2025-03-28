@@ -25,20 +25,28 @@ export default function ArticleCard({
   image,
 }: ArticleCardProps) {
   return (
-    <Card key={sid} className="overflow-hidden">
+    <Card
+      key={sid}
+      className="overflow-hidden transition-all duration-300 hover:shadow-lg hover:-translate-y-1 hover:border-primary/50 cursor-pointer"
+    >
       <div className="relative">
         {image && (
           <Image
             src={image}
-            width={400}
-            height={200}
+            width={300}
+            height={300}
             alt={title}
+            style={{
+              objectFit: "cover",
+              width: "100%",
+              height: "100%",
+            }}
             className="w-full object-cover h-48"
           />
         )}
-        <div className="absolute top-2 right-2 bg-primary text-primary-foreground text-xs px-2 py-1 rounded">
+        {/* <div className="absolute top-2 right-2 bg-primary text-primary-foreground text-xs px-2 py-1 rounded">
           {tags?.join(", ")}
-        </div>
+        </div> */}
       </div>
       <CardHeader className="p-4 pb-2">
         <CardTitle className="line-clamp-2 text-xl">

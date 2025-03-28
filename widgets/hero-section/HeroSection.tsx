@@ -27,11 +27,11 @@ export default function HeroSection() {
               <Button variant="outline">연락하기</Button>
             </div>
           </div>
-          <div className="relative mx-auto aspect-square w-full max-w-sm rounded-full border overflow-hidden">
+          <div className="relative mx-auto aspect-square w-full max-w-[150px] sm:max-w-[180px] md:max-w-[220px] lg:max-w-[250px] rounded-full border overflow-hidden">
             <Image
-              src="/profile/profile-image.jpg"
-              width={400}
-              height={400}
+              src="/photo/profile-image.jpg"
+              width={300}
+              height={300}
               alt="Profile picture"
               className="object-cover"
               priority
